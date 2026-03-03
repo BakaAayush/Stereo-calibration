@@ -1,0 +1,10 @@
+# Stereo Depth Sensing Pipeline — Python Dependencies
+#
+# IMPORTANT: Install opencv-contrib-python, NOT plain opencv-python.
+# If you already have opencv-python, uninstall it first:
+#
+#   pip uninstall opencv-python -y
+#   pip install -r requirements.txt
+#
+opencv-contrib-python>=4.8.0
+numpy>=1.24.0
