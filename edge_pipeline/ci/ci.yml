@@ -1,0 +1,53 @@
+name: Edge Pipeline CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r requirements.txt
+          pip install ruff
+
+      - name: Lint with ruff
+        run: ruff check src/ tests/ examples/
+
+      - name: Run unit tests
+        run: |
+          python -m pytest tests/ -v --tb=short -x \
+            --ignore=tests/test_hardware.py \
+            -k "not hardware and not i2c"
+        env:
+          PYTHONDONTWRITEBYTECODE: 1
+
+      - name: Run mock end-to-end
+        run: python examples/mock_end_to_end.py --output /tmp/trajectory.csv
+
+      - name: Verify trajectory CSV
+        run: |
+          python -c "
+          import numpy as np
+          data = np.loadtxt('/tmp/trajectory.csv', delimiter=',', comments='%')
+          assert data.ndim == 2, 'CSV should be 2D'
+          assert data.shape[1] >= 4, 'Should have time + joints columns'
+          print(f'Trajectory: {data.shape[0]} points × {data.shape[1]} columns')
+          print('CSV validation passed ✓')
+          "

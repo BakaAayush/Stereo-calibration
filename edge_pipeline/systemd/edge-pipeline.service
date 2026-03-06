@@ -1,0 +1,25 @@
+[Unit]
+Description=Edge Pipeline — Vision-Guided Robotic Arm Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/edge_pipeline
+ExecStart=/home/pi/edge_pipeline/.venv/bin/python -m src.service.daemon --mode simulation
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+# Resource limits
+MemoryMax=2G
+CPUQuota=80%
+
+# Environment
+Environment=PYTHONUNBUFFERED=1
+Environment=OPENBLAS_NUM_THREADS=4
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,41 @@
+﻿python : C:\Users\panda\AppData\Local\Progra
+ms\Python\Python313\Lib\site-packages\ikpy\c
+hain.py:60: UserWarning: Link Base link 
+(index: 0) is of type 'fixed' but set as 
+active in the active_links_mask. In 
+practice, this fixed link doesn't provide 
+any transformation so is as it were inactive
+At line:1 char:1
++ python examples/benchmark_fps.py 2>&1 | 
+Out-File -FilePath bench_log. ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: 
+    (C:\Users\panda\...t were inactive:Str  
+  ing) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommand 
+   Error
+ 
+  warnings.warn("Link {} (index: {}) is of 
+type 'fixed' but set as active in the 
+active_links_mask. In practice, this fixed 
+link doesn't provide any transformation so 
+is as it were inactive".format(link.name, 
+link_index))
+Benchmarking transform (200 iterations)...
+Benchmarking IK (200 iterations)...
+Benchmarking planner (50 iterations)...
+Benchmarking trajectory smoothing (200 iterations)...
+
+============================================================
+PROFILING RESULTS
+============================================================
+  transform_single                mean=   0.016 ms  median=   0.013 ms  p99=   0.068 ms
+  transform_batch_100             mean=   0.014 ms  median=   0.014 ms  p99=   0.024 ms
+  transform_workspace_100         mean=   0.010 ms  median=   0.008 ms  p99=   0.070 ms
+  ik                              mean=   6.609 ms  median=   6.506 ms  p99=  11.442 ms
+  planner_rrt_star                mean=   0.012 ms  median=   0.009 ms  p99=   0.077 ms
+  smoothing                       mean=   0.303 ms  median=   0.273 ms  p99=   0.684 ms
+============================================================
+Results written to: output\profiling.json
+
+Estimated transform+IK FPS: 153.4

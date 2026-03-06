@@ -1,0 +1,57 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.0, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\panda\AppData\Local\Programs\Python\Python313\python.exe
+cachedir: .pytest_cache
+rootdir: D:\Antigravity ki bakchodi\edge_pipeline
+collecting ... collected 40 items
+
+tests/test_collision.py::TestPointSegmentDistance::test_point_on_segment PASSED [  2%]
+tests/test_collision.py::TestPointSegmentDistance::test_point_at_endpoint PASSED [  5%]
+tests/test_collision.py::TestPointSegmentDistance::test_point_perpendicular PASSED [  7%]
+tests/test_collision.py::TestPointSegmentDistance::test_batch_distances PASSED [ 10%]
+tests/test_collision.py::TestCollisionChecker::test_no_obstacles PASSED  [ 12%]
+tests/test_collision.py::TestCollisionChecker::test_collision_detection PASSED [ 15%]
+tests/test_collision.py::TestCollisionChecker::test_path_collision PASSED [ 17%]
+tests/test_end_to_end.py::TestEndToEnd::test_mock_pipeline_produces_csv PASSED [ 20%]
+tests/test_end_to_end.py::TestEndToEnd::test_csv_loadable_by_numpy PASSED [ 22%]
+tests/test_kinematics.py::TestForwardKinematics::test_home_position_3dof PASSED [ 25%]
+tests/test_kinematics.py::TestForwardKinematics::test_home_position_4dof PASSED [ 27%]
+tests/test_kinematics.py::TestForwardKinematics::test_fk_different_configs PASSED [ 30%]
+tests/test_kinematics.py::TestForwardKinematics::test_fk_position_matches PASSED [ 32%]
+tests/test_kinematics.py::TestInverseKinematics::test_ik_round_trip_3dof PASSED [ 35%]
+tests/test_kinematics.py::TestInverseKinematics::test_ik_round_trip_4dof PASSED [ 37%]
+tests/test_kinematics.py::TestInverseKinematics::test_ik_multiple_poses_3dof PASSED [ 40%]
+tests/test_kinematics.py::TestInverseKinematics::test_ik_respects_joint_limits PASSED [ 42%]
+tests/test_kinematics.py::TestJacobian::test_jacobian_shape PASSED       [ 45%]
+tests/test_kinematics.py::TestJacobian::test_jacobian_shape_4dof PASSED  [ 47%]
+tests/test_kinematics.py::TestJacobian::test_jacobian_numerical_consistency PASSED [ 50%]
+tests/test_kinematics.py::TestUtilities::test_clamp_joints PASSED        [ 52%]
+tests/test_kinematics.py::TestUtilities::test_home_position PASSED       [ 55%]
+tests/test_kinematics.py::TestUtilities::test_workspace_radius PASSED    [ 57%]
+tests/test_planner.py::TestPlannerNoObstacles::test_direct_path PASSED   [ 60%]
+tests/test_planner.py::TestPlannerNoObstacles::test_apf_mode PASSED      [ 62%]
+tests/test_planner.py::TestPlannerWithObstacles::test_rrt_avoids_obstacle PASSED [ 65%]
+tests/test_planner.py::TestPlannerWithObstacles::test_bounded_timeout PASSED [ 67%]
+tests/test_planner.py::TestTrajectorySmoothing::test_cubic_smooth PASSED [ 70%]
+tests/test_planner.py::TestTrajectorySmoothing::test_quintic_smooth PASSED [ 72%]
+tests/test_planner.py::TestTrajectorySmoothing::test_time_parameterize_output PASSED [ 75%]
+tests/test_transform.py::TestPixelDepthToCamera::test_principal_point_unit_depth PASSED [ 77%]
+tests/test_transform.py::TestPixelDepthToCamera::test_known_offset PASSED [ 80%]
+tests/test_transform.py::TestPixelDepthToCamera::test_depth_scaling PASSED [ 82%]
+tests/test_transform.py::TestPixelDepthToCamera::test_batch PASSED       [ 85%]
+tests/test_transform.py::TestCameraToBase::test_identity_transform PASSED [ 87%]
+tests/test_transform.py::TestCameraToBase::test_translation_only PASSED  [ 90%]
+tests/test_transform.py::TestCameraToBase::test_batch_transform PASSED   [ 92%]
+tests/test_transform.py::TestCameraToBase::test_round_trip PASSED        [ 95%]
+tests/test_transform.py::TestBatchPixelToBase::test_batch PASSED         [ 97%]
+tests/test_transform.py::TestTransformWorkspace::test_workspace_matches_functional PASSED [100%]
+
+============================== warnings summary ===============================
+tests/test_collision.py: 3 warnings
+tests/test_end_to_end.py: 2 warnings
+tests/test_kinematics.py: 14 warnings
+tests/test_planner.py: 4 warnings
+  C:\Users\panda\AppData\Local\Programs\Python\Python313\Lib\site-packages\ikpy\chain.py:60: UserWarning: Link Base link (index: 0) is of type 'fixed' but set as active in the active_links_mask. In practice, this fixed link doesn't provide any transformation so is as it were inactive
+    warnings.warn("Link {} (index: {}) is of type 'fixed' but set as active in the active_links_mask. In practice, this fixed link doesn't provide any transformation so is as it were inactive".format(link.name, link_index))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 40 passed, 23 warnings in 0.31s =======================

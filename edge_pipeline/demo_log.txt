@@ -1,0 +1,74 @@
+﻿python : 2026-03-05 02:54:02,819 [INFO] === 
+Mock End-to-End Pipeline Demo (DOF=3) ===
+At line:1 char:1
++ python examples/mock_end_to_end.py 2>&1 | 
+Out-File -FilePath demo_log ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: 
+(    2026-03-05 02:5...emo (DOF=3) 
+===:String)     [], RemoteException
+    + FullyQualifiedErrorId : 
+NativeCommandEr    ror
+ 
+2026-03-05 02:54:02,819 [INFO] 
+ArmKinematics: dof=3, backend=ikpy
+C:\Users\panda\AppData\Local\Programs\Python
+\Python313\Lib\site-packages\ikpy\chain.py:6
+0: UserWarning: Link Base link (index: 0) 
+is of type 'fixed' but set as active in the 
+active_links_mask. In practice, this fixed 
+link doesn't provide any transformation so 
+is as it were inactive
+  warnings.warn("Link {} (index: {}) is of 
+type 'fixed' but set as active in the 
+active_links_mask. In practice, this fixed 
+link doesn't provide any transformation so 
+is as it were inactive".format(link.name, 
+link_index))
+2026-03-05 02:54:02,878 [INFO] Arm 
+workspace radius: 0.331 m
+2026-03-05 02:54:02,891 [INFO] --- 
+Processing detection: bolt (u=640, v=360, 
+z=0.250 m) ---
+2026-03-05 02:54:02,891 [INFO]   Transform: 
+camera=[0.   0.   0.25] \u2192 base=[0.   
+0.   0.05]  (0.12 ms)
+2026-03-05 02:54:02,906 [INFO]   IK: 
+q=[-0.3267 -2.9339  0.    ]  error=0.0000 m 
+ (13.81 ms)
+2026-03-05 02:54:02,906 [INFO] Direct path 
+is collision-free; skipping planner
+2026-03-05 02:54:02,906 [INFO]   Plan: 2 
+waypoints  (0.14 ms)
+2026-03-05 02:54:02,907 [INFO]   Smooth: 
+163 samples, 3.25 s duration  (0.64 ms)
+2026-03-05 02:54:02,908 [INFO] --- 
+Processing detection: nut (u=500, v=300, 
+z=0.200 m) ---
+2026-03-05 02:54:02,908 [INFO]   Transform: 
+camera=[-0.0467 -0.02    0.2   ] \u2192 
+base=[-0.0467  0.02    0.1   ]  (0.04 ms)
+2026-03-05 02:54:02,915 [WARNING] Primary 
+IK failed; trying gradient-descent fallback
+2026-03-05 02:54:02,966 [WARNING]   IK 
+FAILED: {'converged': np.False_, 'error_m': 
+0.02, 'time_ms': 57.263299997430295} ù 
+skipping
+2026-03-05 02:54:02,967 [INFO] Trajectory 
+CSV written: output\trajectory.csv (163 
+points, 3 DOF)
+2026-03-05 02:54:02,968 [INFO] Trajectory 
+JSON written: output\trajectory.json (163 
+points)
+2026-03-05 02:54:02,968 [INFO] === Output 
+Files ===
+2026-03-05 02:54:02,969 [INFO]   CSV:  
+output\trajectory.csv  (163 points ╫ 3 DOF)
+2026-03-05 02:54:02,969 [INFO]   JSON: 
+output\trajectory.json
+2026-03-05 02:54:02,969 [INFO] === Demo 
+Complete ===
+2026-03-05 02:54:02,969 [INFO]   Mock 
+actuator received 163 commands
+2026-03-05 02:54:02,969 [INFO] MockActuator 
+closed (163 commands logged)
