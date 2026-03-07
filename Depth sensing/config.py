@@ -2,6 +2,9 @@
 # config.py — Shared Configuration for Stereo Depth Sensing Pipeline
 # =============================================================================
 # Edit the values here; they are imported by all three pipeline scripts.
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # -----------------------------------------------------------------------------
 # Camera Settings
@@ -10,7 +13,7 @@
 #   ID 0 = Built-in laptop webcam (not used)
 #   ID 1 = HP w200  → LEFT camera  (supports up to 1080p)
 #   ID 2 = HP w200  → RIGHT camera (supports up to 1080p)
-LEFT_CAM_ID  = 1   # HP w200 (Left)
+LEFT_CAM_ID  = 1  # HP w200 (Left)
 RIGHT_CAM_ID = 0   # HP w200 (Right)
 
 # Resolution locked to 1280x720 (720p). Both HP w200 cameras support up to 1080p,
@@ -22,18 +25,18 @@ FRAME_HEIGHT = 720
 # Calibration Board Settings
 # -----------------------------------------------------------------------------
 # Number of INNER corners (not squares).
-# A printed 10×7 square board has (9, 6) inner corners.
+# A printed 11x8 square board has (10, 7) inner corners.
 CHESSBOARD_SIZE = (7, 10)
 
 # Real-world size of ONE square on your printed checkerboard (in millimetres).
-# Measure with a ruler after printing!
-SQUARE_SIZE_MM = 25.0
+# 2.3 cm = 23.0 mm
+SQUARE_SIZE_MM = 23.0
 
 # -----------------------------------------------------------------------------
 # File Paths
 # -----------------------------------------------------------------------------
-CALIBRATION_IMAGES_FOLDER = "calibration_images"
-CALIBRATION_DATA_FILE     = "stereo_calibration.npz"
+CALIBRATION_IMAGES_FOLDER = os.path.join(BASE_DIR, "calibration_images")
+CALIBRATION_DATA_FILE     = os.path.join(BASE_DIR, "stereo_calibration.npz")
 
 # -----------------------------------------------------------------------------
 # SGBM Disparity Matcher Defaults (used in Stage 3)

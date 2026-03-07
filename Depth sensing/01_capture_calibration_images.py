@@ -217,10 +217,23 @@ def main() -> None:
         gray_r_eq = clahe.apply(gray_r)
 
         flags = (cv2.CALIB_CB_ADAPTIVE_THRESH +
-                 cv2.CALIB_CB_NORMALIZE_IMAGE)
+                 cv2.CALIB_CB_NORMALIZE_IMAGE +
+                 cv2.CALIB_CB_FAST_CHECK)
 
-        found_l, corners_l = cv2.findChessboardCorners(gray_l_eq, CHESSBOARD_SIZE, flags)
-        found_r, corners_r = cv2.findChessboardCorners(gray_r_eq, CHESSBOARD_SIZE, flags)
+        # ── Fast Detection via Downscaling ────────────────────────────────────
+        # Detecting on 1280x720 is too slow for real-time. We downscale by 50%
+        # for detection, then refine the corners at 100% resolution.
+        DETECTION_SCALE = 0.5
+        small_l = cv2.resize(gray_l_eq, (0, 0), fx=DETECTION_SCALE, fy=DETECTION_SCALE)
+        small_r = cv2.resize(gray_r_eq, (0, 0), fx=DETECTION_SCALE, fy=DETECTION_SCALE)
+
+        found_l, corners_l = cv2.findChessboardCorners(small_l, CHESSBOARD_SIZE, flags)
+        found_r, corners_r = cv2.findChessboardCorners(small_r, CHESSBOARD_SIZE, flags)
+
+        if found_l:
+            corners_l = corners_l / DETECTION_SCALE
+        if found_r:
+            corners_r = corners_r / DETECTION_SCALE
 
         both_found = found_l and found_r
 

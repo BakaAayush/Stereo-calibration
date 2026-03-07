@@ -79,6 +79,7 @@ SGBM_CONF_FILE = SCRIPT_DIR / "sgbm_config.json"
 _mouse_x, _mouse_y = 0, 0
 _click_queue = []  # list of (x, y) clicks to process
 _click_lock = threading.Lock()
+_display_scale = 1.0  # updated each frame; maps display coords -> original coords
 
 
 def _on_mouse(event, x, y, flags, param):
@@ -454,9 +455,16 @@ def main():
         # Right panel: depth map with crosshair + coords
         depth_colour = colorize_disparity(disp_float, num_disp)
 
-        # The mouse x is relative to the combined image; depth is the right half
-        depth_mx = _mouse_x - w  # offset because depth is right half
-        depth_my = _mouse_y
+        # ── Unscale mouse coords from display space to original image space ──
+        # The display may be downscaled (e.g. 2560->1920),
+        # so raw mouse coords must be divided by the scale factor.
+        global _display_scale
+        orig_mx = int(_mouse_x / _display_scale)
+        orig_my = int(_mouse_y / _display_scale)
+
+        # The depth map is the right half of the combined image
+        depth_mx = orig_mx - w
+        depth_my = orig_my
         depth_mx_c = max(0, min(depth_mx, w - 1))
         depth_my_c = max(0, min(depth_my, h - 1))
 
@@ -480,17 +488,21 @@ def main():
         # Combine side by side
         combined = cv2.hconcat([cam_display, depth_colour])
 
-        # Downscale if too wide
+        # Downscale if too wide — store scale factor for mouse unscaling
         if combined.shape[1] > 1920:
-            s = 1920 / combined.shape[1]
-            combined = cv2.resize(combined, None, fx=s, fy=s)
+            _display_scale = 1920 / combined.shape[1]
+            combined = cv2.resize(combined, None, fx=_display_scale, fy=_display_scale)
+        else:
+            _display_scale = 1.0
 
         cv2.imshow(WIN_MAIN, combined)
 
         # ── Process clicks ───────────────────────────────────────────────────
         click = _pop_click()
         if click is not None:
-            cx, cy = click
+            # Unscale click coords from display space to original image space
+            cx = int(click[0] / _display_scale)
+            cy = int(click[1] / _display_scale)
             # Check if click is on the depth map side (right half)
             if cx >= w:
                 px = cx - w  # pixel in depth image
