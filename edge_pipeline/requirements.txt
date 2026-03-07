@@ -2,14 +2,12 @@
 # requirements.txt — Edge Pipeline for Raspberry Pi 5 (ARM64)
 # =============================================================================
 # Core
-numpy>=1.26.0,<2.0
-scipy>=1.12.0,<1.14
-opencv-python-headless>=4.9.0,<4.11
+numpy>=1.26.0
+scipy>=1.12.0
+opencv-python-headless>=4.9.0
 
 # Kinematics
-roboticstoolbox-python>=1.1.0;platform_machine!="aarch64"
 ikpy>=3.3.0,<3.5
-spatialmath-python>=1.1.0
 
 # Planning (numba optional — installed separately on Pi)
 # numba>=0.59.0  # optional, install manually on Pi if desired
